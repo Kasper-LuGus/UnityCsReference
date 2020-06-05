@@ -150,6 +150,34 @@ namespace UnityEngine.Experimental.TerrainAPI
                     this.tileX = tileX;
                     this.tileZ = tileZ;
                 }
+                
+                public override bool Equals(object obj)
+                {
+                    if (!(obj is TileCoord))
+                        return false;
+
+                    return Equals((TileCoord)obj);
+                }
+
+                public bool Equals(TileCoord other)
+                {
+                    return (tileX == other.tileX) && (tileZ == other.tileZ);
+                }
+
+                public override int GetHashCode()
+                {
+                    return (tileX << 2) ^ tileZ;
+                }
+
+                public static bool operator ==(TileCoord coord1, TileCoord coord2)
+                {
+                    return coord1.Equals(coord2);
+                }
+
+                public static bool operator !=(TileCoord coord1, TileCoord coord2)
+                {
+                    return !coord1.Equals(coord2);
+                }
             }
 
             public enum ErrorCode
